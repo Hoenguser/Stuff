@@ -101,7 +101,7 @@ num_list = [
     }
 ]
 
-print(num_list[2])
+# print(num_list[2])
 
         
 
