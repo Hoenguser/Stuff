@@ -6,7 +6,7 @@ class shop_product:
         self._stock_quantity = stock_quantity
         self._buy_amount = buy_amount
     def __repr__(self):
-        return f'shop_product({self.id},{self.name},{str(self.price)},{str(self.stock_quantity)},{str(self.buy_amount)})'
+        return f'shop_product({str(self.id)},{str(self.name)},{str(self.price)},{str(self.stock_quantity)},{str(self.buy_amount)})'
     
     def __str__(self):
         return f'id: {self.id}\nname: {self.name}\nprice: {str(self.price)}\nstock quantitty: {str(self.stock_quantity)}\nbuy amount: {str(self.buy_amount)}'
@@ -65,7 +65,15 @@ class shop_product:
 
 class Product_manager:
     def __init__(self):
-        self.product_list = []
+        self._product_list = []
+    
+    @property
+    def product_list(self):
+        return self._product_list
+    
+    @product_list.setter
+    def product_list(self,value):
+        self._product_list = value
     
     def create_product(self,user_id):
         id = user_id
@@ -78,21 +86,24 @@ class Product_manager:
     
     def show_items(self):
         total = 0
-        for items in self.product_list:
+        if len(self.product_list) >0:
+            for items in self.product_list:
+                print('\n--------\n')
+                print(
+                    f'ID: {items.id}'
+                    f'\nName: {items.name}'
+                    f'\nPrice: {items.price}'
+                    f'\nStock quantitty: {items.stock_quantity}'
+                )
+                if items.buy_amount != None:
+                    print(f'Buy amount: {items.buy_amount}')
+                if items.total_price != None:
+                    total += items.total_price
             print('\n--------\n')
-            print(
-                f'ID: {items.id}'
-                f'\nName: {items.name}'
-                f'\nPrice: {items.price}'
-                f'\nStock quantitty: {items.stock_quantity}'
-            )
-            if items.buy_amount != None:
-                print(f'Buy amount: {items.buy_amount}')
-            if items.total_price != None:
-                total += items.total_price
-        print('\n--------\n')
-        if total != 0:
-            print(f'Total price: {total}VND')
+            if total != 0:
+                print(f'Total price: {total}VND')
+        else:
+            print('No item available')
 
 
     def delete_items(self,user_input):

@@ -1,4 +1,6 @@
 from da_cart import shop_product,Product_manager
+import pickle
+
 
 def input_check(user_input):
     for items in bought.product_list:
@@ -8,10 +10,17 @@ def input_check(user_input):
 
 bought = Product_manager()
 def main():
-    item_1 = shop_product('1','item_1',75,6)
-    item_2 = shop_product('2','item_2',100,8)
-    bought.product_list.append(item_1)
-    bought.product_list.append(item_2)
+    # if len(bought.product_list) == 0:
+    #     bought.product_list.append('avoid error')
+    file_name = '/Users/tom/Documents/Tom/python/my cart/products.pkl'
+    with open(file_name,'rb') as file_import:
+        # if len(bought.product_list) > 0:
+        #     bought.product_list.remove('avoid error')
+            data = pickle.load(file_import)
+            # print(data)
+            bought.product_list = data
+            # print(bought.product_list)
+
     
     while True:
         print()
@@ -54,6 +63,9 @@ def main():
             break
         else:
             print('Invalid choice')
+    
+    with open(file_name,'wb') as file:
+        pickle.dump(bought.product_list,file)
 
 if __name__ == '__main__':
     main()
